@@ -1,5 +1,8 @@
 use godot::prelude::*;
 
+pub mod boid;
+pub use boid::Boid;
+
 struct MyExtension;
 
 #[gdextension]

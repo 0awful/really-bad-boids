@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3ffmkj36njff"]
+
+[ext_resource type="Texture2D" uid="uid://ckem6cqr7ofos" path="res://boid.png" id="1_ro0sm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7n5nl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s3c7y"]
+radius = 752.15
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4nbmn"]
+radius = 46.5296
+
+[node name="Boid" type="Boid"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7n5nl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ro0sm")
+
+[node name="Flock" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Flock"]
+shape = SubResource("CircleShape2D_s3c7y")
+
+[node name="Vision" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
+shape = SubResource("CircleShape2D_4nbmn")
+debug_color = Color(0.92549, 0.231373, 0.392157, 0.419608)
+
+[connection signal="body_entered" from="Flock" to="." method="flock_entered"]
+[connection signal="body_exited" from="Flock" to="." method="flock_exited"]
+[connection signal="body_entered" from="Vision" to="." method="on_body_entered"]
+[connection signal="body_exited" from="Vision" to="." method="on_body_exited"]
